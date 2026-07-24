@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeVerse | Analytics</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/premium.css">
+  <link rel="stylesheet" href="css/analytics.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Mobile topbar -->
+  <div class="topbar">
+    <span class="topbar-logo">🌱 LifeVerse</span>
+    <button class="menu-btn"><i class="fas fa-bars"></i></button>
+  </div>
+
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button class="sidebar-close"><i class="fas fa-times"></i></button>
+      <div class="logo">🌱 LifeVerse</div>
+      <nav>
+        <ul>
+          <li onclick="location.href='dashboard.html'"><i class="fas fa-house"></i> Dashboard</li>
+          <li onclick="location.href='eco.html'"><i class="fas fa-leaf"></i> Eco Challenges</li>
+          <li onclick="location.href='bills.html'"><i class="fas fa-file-invoice"></i> Bills</li>
+          <li onclick="location.href='quests.html'"><i class="fas fa-flag"></i> Quests</li>
+          <li class="active"><i class="fas fa-chart-line"></i> Analytics</li>
+          <li onclick="location.href='profile.html'"><i class="fas fa-user"></i> Profile</li>
+          <li onclick="location.href='premium.html'"><i class="fas fa-crown"></i> Premium</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="content">
+
+      <header>
+        <div>
+          <h1>📊 Eco Analytics</h1>
+          <p class="subtitle">Track your environmental impact and monitor your progress.</p>
+        </div>
+      </header>
+
+      <!-- Key Stats -->
+      <section class="stats">
+        <div class="stat-card">
+          <i class="fas fa-star"></i>
+          <h3>Eco Score</h3>
+          <h2 id="ecoScore">850</h2>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-trophy"></i>
+          <h3>Level</h3>
+          <h2 id="level">5</h2>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-coins"></i>
+          <h3>Eco Coins</h3>
+          <h2 id="coins">1250</h2>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-flag"></i>
+          <h3>Quests Done</h3>
+          <h2 id="completedQuests">0</h2>
+        </div>
+      </section>
+
+      <!-- Impact Cards -->
+      <h2 class="section-title"><i class="fas fa-earth-americas"></i> Your Environmental Impact</h2>
+      <section class="dashboard-grid">
+
+        <div class="card">
+          <h2>🌍 Carbon Footprint</h2>
+          <p>Estimated CO₂ emissions saved this month.</p>
+          <div class="analytics-value" id="carbonFootprint">—</div>
+          <progress id="carbonProgress" value="0" max="100"></progress>
+          <strong id="carbonMsg"></strong>
+        </div>
+
+        <div class="card">
+          <h2>💧 Water Saved</h2>
+          <p>Estimated water saved through eco-friendly actions.</p>
+          <div class="analytics-value" id="waterSaved">—</div>
+          <progress id="waterProgress" value="0" max="100"></progress>
+          <strong style="color:#1565C0" id="waterMsg"></strong>
+        </div>
+
+        <div class="card">
+          <h2>⚡ Energy Saved</h2>
+          <p>Electricity saved by completing eco challenges.</p>
+          <div class="analytics-value" id="energySaved">—</div>
+          <progress id="energyProgress" value="0" max="100"></progress>
+          <strong style="color:#F57F17" id="energyMsg"></strong>
+        </div>
+
+        <div class="card">
+          <h2>♻️ Recycling Rate</h2>
+          <p>Percentage of recyclable waste you've processed.</p>
+          <div class="analytics-value" id="recyclingRate">—</div>
+          <progress id="recyclingProgress" value="0" max="100"></progress>
+          <strong id="recyclingMsg"></strong>
+        </div>
+
+        <div class="card">
+          <h2>🌳 Trees Planted</h2>
+          <p>Total trees planted or sponsored through LifeVerse.</p>
+          <div class="analytics-value" id="treesPlanted">—</div>
+          <progress id="treeProgress" value="0" max="100"></progress>
+          <strong id="treeMsg"></strong>
+        </div>
+
+        <div class="card">
+          <h2>🔥 Eco Streak</h2>
+          <p>Consecutive days you've completed eco activities.</p>
+          <div class="analytics-value" id="streakValue">—</div>
+          <progress id="streakProgress" value="0" max="100"></progress>
+          <strong style="color:#E64A19" id="streakMsg"></strong>
+        </div>
+
+      </section>
+
+      <!-- Chart -->
+      <h2 class="section-title"><i class="fas fa-chart-bar"></i> Weekly Activity Chart</h2>
+      <div class="chart-card">
+        <canvas id="weeklyChart"></canvas>
+      </div>
+
+      <!-- Weekly Summary -->
+      <h2 class="section-title"><i class="fas fa-calendar-week"></i> Weekly Summary</h2>
+      <section class="dashboard-grid">
+
+        <div class="card">
+          <h2>🏆 Weekly Performance</h2>
+          <p>You completed <strong id="weeklyCount">0</strong> Eco Challenges this week.</p>
+          <progress id="weeklyProgress" value="0" max="100"></progress>
+          <strong id="weeklyMsg"></strong>
+        </div>
+
+        <div class="card">
+          <h2>🌍 CO₂ Reduction</h2>
+          <p>Your eco habits prevented approximately</p>
+          <div class="analytics-value" id="weeklyCarbon">0 kg</div>
+          <p>of CO₂ emissions this week.</p>
+        </div>
+
+      </section>
+
+      <!-- Recent Achievements -->
+      <h2 class="section-title"><i class="fas fa-medal"></i> Recent Achievements</h2>
+      <section class="dashboard-grid">
+
+        <div class="card">
+          <h2>🌱 Eco Beginner</h2>
+          <p>Completed your first eco challenge.</p>
+        </div>
+        <div class="card">
+          <h2>♻️ Recycling Hero</h2>
+          <p>Recycled over 50 items through LifeVerse challenges.</p>
+        </div>
+        <div class="card">
+          <h2>🔥 7-Day Streak</h2>
+          <p>Completed activities for 7 consecutive days.</p>
+        </div>
+        <div class="card">
+          <h2>🌳 Tree Protector</h2>
+          <p>Planted or sponsored 10 trees.</p>
+        </div>
+
+      </section>
+
+      <!-- Eco Tips -->
+      <h2 class="section-title"><i class="fas fa-lightbulb"></i> Eco Tips</h2>
+      <section class="dashboard-grid">
+
+        <div class="card">
+          <h2>💧 Save Water</h2>
+          <p>Turning off the tap while brushing your teeth can save up to <strong>24 litres</strong> every day.</p>
+        </div>
+        <div class="card">
+          <h2>⚡ Save Energy</h2>
+          <p>Switching to LED bulbs uses up to <strong>80% less electricity</strong> than standard bulbs.</p>
+        </div>
+        <div class="card">
+          <h2>🚶 Walk More</h2>
+          <p>Walking short distances instead of driving cuts your carbon footprint and improves your health.</p>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/premium.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const xp      = Number(localStorage.getItem('xp'))              || 850;
+      const coins   = Number(localStorage.getItem('coins'))            || 1250;
+      const level   = Number(localStorage.getItem('level'))            || 5;
+      const streak  = Number(localStorage.getItem('streak'))           || 12;
+      const done    = Number(localStorage.getItem('completedQuests'))  || 0;
+
+      // Stats
+      set('ecoScore',        xp);
+      set('level',           level);
+      set('coins',           coins);
+      set('completedQuests', done);
+
+      // Impact calculations
+      const carbon   = Math.max(10, 100 - done * 2);
+      const water    = done * 150;
+      const energy   = done * 35;
+      const trees    = Math.floor(done / 3);
+      const recycle  = Math.min(100, done * 8);
+
+      set('carbonFootprint', carbon + ' kg');
+      set('waterSaved',      water  + ' L');
+      set('energySaved',     energy + ' kWh');
+      set('recyclingRate',   recycle + '%');
+      set('treesPlanted',    trees);
+      set('streakValue',     streak + ' Days');
+
+      // Progress bars
+      prog('carbonProgress',   carbon);
+      prog('waterProgress',    Math.min(100, done * 10));
+      prog('energyProgress',   Math.min(100, done * 9));
+      prog('recyclingProgress',recycle);
+      prog('treeProgress',     Math.min(100, done * 7));
+      prog('streakProgress',   Math.min(100, streak * 6));
+
+      // Messages
+      setText('carbonMsg',    'Excellent! You are below the average footprint.');
+      setText('waterMsg',     'Great progress this month!');
+      setText('energyMsg',    'Keep reducing your energy usage.');
+      setText('recyclingMsg', 'You are recycling more than most users.');
+      setText('treeMsg',      'Every tree makes a real difference.');
+      setText('streakMsg',    'Keep the streak alive!');
+
+      // Weekly
+      set('weeklyCount', done);
+      set('weeklyCarbon', Math.round(done * 1.8) + ' kg');
+      prog('weeklyProgress', Math.min(100, done * 10));
+      setText('weeklyMsg', done >= 10
+        ? 'Excellent work! You are in the top 20% of users.'
+        : 'Keep going — complete more challenges this week!');
+
+      // Chart
+      const ctx = document.getElementById('weeklyChart');
+      if (ctx && typeof Chart !== 'undefined') {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+            datasets: [{
+              label: 'Eco Activity Score',
+              data: [20, 35, 50, 40, 70, 85, Math.min(100, done * 15 + 20)],
+              backgroundColor: 'rgba(67,160,71,0.7)',
+              borderColor: '#2E7D32',
+              borderWidth: 2,
+              borderRadius: 8,
+            }],
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { beginAtZero: true, max: 100, grid: { color: 'rgba(0,0,0,0.05)' } },
+              x: { grid: { display: false } },
+            },
+          },
+        });
+      }
+    });
+
+    function set(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    function prog(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    }
+
+    function setText(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+  </script>
+</body>
+</html>
