@@ -1,0 +1,237 @@
+/* =============================================
+   LIFEVERSE — ECO CHALLENGES PAGE
+   css/eco.css  (extends dashboard.css)
+============================================= */
+
+/* ===== ECO HEADER ===== */
+.eco-header {
+  background: linear-gradient(135deg, #1B5E20 0%, #43A047 100%);
+  color: #fff;
+  padding: 32px 36px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 28px rgba(46,125,50,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-header::before {
+  content: '';
+  position: absolute;
+  width: 260px; height: 260px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 50%;
+  right: -80px; top: -80px;
+}
+
+.eco-header::after {
+  content: '';
+  position: absolute;
+  width: 140px; height: 140px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+  left: -40px; bottom: -40px;
+}
+
+.eco-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.eco-header p {
+  font-size: 15px;
+  opacity: 0.88;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CHALLENGE GRID ===== */
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  margin-bottom: 36px;
+}
+
+/* ===== CHALLENGE CARD ===== */
+.challenge-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+  border-top: 5px solid #43A047;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeUp 0.5s ease both;
+}
+
+.challenge-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 38px rgba(0,0,0,0.12);
+}
+
+/* ===== CHALLENGE ICON ===== */
+.challenge-icon {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: rgba(46,125,50,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #2E7D32;
+  margin-bottom: 16px;
+}
+
+.challenge-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2E7D32;
+  margin-bottom: 8px;
+}
+
+.challenge-card p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* ===== DIFFICULTY BADGES ===== */
+.difficulty {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.easy   { background: #C8E6C9; color: #2E7D32; }
+.medium { background: #FFF3CD; color: #856404; }
+.hard   { background: #FFCDD2; color: #C62828; }
+
+/* ===== REWARD ROW ===== */
+.reward-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(46,125,50,0.07);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2E7D32;
+}
+
+/* ===== PROGRESS BAR (div-based) ===== */
+.challenge-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #E0E0E0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.challenge-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #43A047, #2E7D32);
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+.challenge-progress-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+/* ===== CLAIM BUTTON ===== */
+.claim-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #43A047, #2E7D32);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.claim-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(67,160,71,0.35);
+}
+
+.claim-btn.completed {
+  background: #B0BEC5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== ECO STATS ===== */
+.eco-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.eco-stat {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  transition: transform 0.3s;
+}
+
+.eco-stat:hover { transform: translateY(-5px); }
+
+.eco-stat h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #2E7D32;
+  margin-bottom: 6px;
+}
+
+.eco-stat p { font-size: 13px; color: #888; }
+
+/* ===== ANIMATION ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.challenge-card:nth-child(1) { animation-delay: 0.05s; }
+.challenge-card:nth-child(2) { animation-delay: 0.12s; }
+.challenge-card:nth-child(3) { animation-delay: 0.19s; }
+.challenge-card:nth-child(4) { animation-delay: 0.26s; }
+.challenge-card:nth-child(5) { animation-delay: 0.33s; }
+.challenge-card:nth-child(6) { animation-delay: 0.40s; }
+
+/* ===== DARK MODE ===== */
+body.dark-mode .challenge-card,
+body.dark-mode .eco-stat {
+  background: #1E1E1E;
+  color: #E0E0E0;
+}
+
+body.dark-mode .challenge-card h3 { color: #A5D6A7; }
+body.dark-mode .challenge-card p  { color: #BDBDBD; }
+body.dark-mode .challenge-progress-bar { background: #333; }
+body.dark-mode .reward-row { background: rgba(255,255,255,0.06); color: #A5D6A7; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .eco-header h1 { font-size: 24px; }
+  .challenge-grid { grid-template-columns: 1fr; }
+}

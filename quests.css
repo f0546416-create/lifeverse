@@ -1,0 +1,22 @@
+/* =============================================
+   LIFEVERSE — QUESTS PAGE
+   css/quests.css  (extends dashboard.css)
+============================================= */
+
+/* Weekly cards already styled in dashboard.css (.weekly-card).
+   This file adds quest-specific extras. */
+
+/* Completed card overlay */
+.card .green-btn.completed {
+  background: #9E9E9E !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Quest action row */
+.quest-actions {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 40px;
+}
