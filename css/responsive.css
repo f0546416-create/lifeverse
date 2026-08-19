@@ -1,0 +1,163 @@
+/* =============================================
+   LIFEVERSE — GLOBAL RESPONSIVE OVERRIDES
+   css/responsive.css
+   Supplements per-page breakpoints in each
+   individual CSS file.
+============================================= */
+
+/* ===== LARGE DESKTOP (1400px+) ===== */
+@media (min-width: 1400px) {
+  .hero-left h1         { font-size: 68px; }
+  .features-header h2   { font-size: 54px; }
+  .section-header h2    { font-size: 46px; }
+}
+
+/* ===== WIDE LAYOUT (1200px–1399px) ===== */
+@media (max-width: 1200px) {
+  .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid   { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===== TABLET LANDSCAPE (1024px–1199px) ===== */
+@media (max-width: 1024px) {
+  .hero-content           { gap: 36px; }
+  .hero-left h1           { font-size: 46px; }
+  .feature-grid           { grid-template-columns: 1fr 1fr; }
+  .features-header h2     { font-size: 38px; }
+
+  /* Dashboard */
+  .content                { padding: 28px; }
+}
+
+/* ===== TABLET PORTRAIT (860px–1023px) ===== */
+@media (max-width: 860px) {
+  /* Landing nav collapses */
+  .nav-center,
+  .nav-right              { display: none; }
+  .nav-toggle             { display: block; }
+
+  /* Hero stacks */
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 36px;
+    gap: 36px;
+  }
+  .hero-left              { max-width: 100%; }
+  .hero-left p            { margin: 0 auto 32px; }
+  .hero-left h1           { font-size: 40px; letter-spacing: -1px; }
+  .hero-buttons           { justify-content: center; }
+  .hero-badges            { justify-content: center; }
+  .social-pill            { align-self: center; margin-left: 0; }
+
+  /* Feature grid single */
+  .feature-grid           { grid-template-columns: 1fr; }
+  .features-header h2     { font-size: 32px; }
+
+  /* Steps */
+  .steps                  { flex-direction: column; align-items: center; }
+  .step-arrow             { transform: rotate(90deg); }
+}
+
+/* ===== MOBILE (600px–859px) ===== */
+@media (max-width: 768px) {
+  /* Dashboard sidebar slide-out */
+  .sidebar {
+    transform: translateX(-100%);
+    z-index: 300;
+    box-shadow: 4px 0 40px rgba(0,0,0,0.7);
+  }
+  .sidebar.open           { transform: translateX(0); }
+  .sidebar-close          { display: flex; }
+  .topbar                 { display: flex; }
+  .content                { margin-left: 0; padding: 16px; }
+
+  /* Cards */
+  .dashboard-grid         { grid-template-columns: 1fr; }
+  .stats                  { grid-template-columns: repeat(2, 1fr); }
+  header                  { padding: 20px; }
+  header h1               { font-size: 20px; }
+
+  /* Auth */
+  .auth-panel             { display: none; }
+  .auth-form-wrap         { padding: 28px 16px; }
+
+  /* Footer */
+  .footer-inner           { flex-direction: column; }
+  .footer-cols            { flex-direction: column; gap: 28px; }
+  .footer-bottom          { flex-direction: column; align-items: flex-start; }
+
+  /* Premium */
+  .pricing-grid           { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .plan-card.popular      { transform: none; }
+
+  /* Profile */
+  .profile-card           { flex-direction: column; text-align: center; }
+  .profile-header         { flex-direction: column; align-items: center; }
+  .profile-info           { grid-template-columns: repeat(2, 1fr); }
+
+  /* Eco / challenges */
+  .challenge-grid         { grid-template-columns: 1fr; }
+
+  /* Quests */
+  .quest-tabs             { gap: 4px; }
+  .quest-tab              { padding: 6px 12px; font-size: 12px; }
+}
+
+/* ===== SMALL MOBILE (< 500px) ===== */
+@media (max-width: 500px) {
+  /* Landing */
+  nav                     { width: calc(100% - 20px); top: 8px; }
+  .hero-left h1           { font-size: 30px; letter-spacing: -0.8px; }
+  .phone                  { width: 248px; }
+
+  /* Dashboard */
+  .stats                  { grid-template-columns: 1fr; }
+  .content                { padding: 12px; }
+  .card                   { padding: 18px; }
+  .impact                 { grid-template-columns: 1fr; }
+
+  /* Auth */
+  .auth-card              { padding: 28px 18px; border-radius: 18px; }
+  .auth-card h1           { font-size: 22px; }
+  .signup-card            { padding: 28px 18px; border-radius: 18px; }
+  .signup-header h1       { font-size: 22px; }
+
+  /* Profile */
+  .profile-info           { grid-template-columns: 1fr; }
+  #profileImage           { width: 100px; height: 100px; }
+
+  /* Premium */
+  .payment-modal          { padding: 24px 16px; border-radius: 18px; }
+  .payment-row            { grid-template-columns: 1fr; }
+  .compare-table th,
+  .compare-table td       { padding: 10px 8px; font-size: 12px; }
+  .money-back             { flex-direction: column; text-align: center; }
+}
+
+/* ===== VERY SMALL (< 360px) ===== */
+@media (max-width: 360px) {
+  .hero-left h1           { font-size: 26px; }
+  .btn-dark,
+  .btn-secondary-outline  { padding: 12px 20px; font-size: 14px; }
+  .hero-badges            { flex-direction: column; align-items: center; }
+  .nav-inner              { padding: 8px 10px 8px 16px; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ticker { animation: none; }
+}
+
+/* ===== PRINT ===== */
+@media print {
+  .sidebar, .topbar, nav, footer { display: none !important; }
+  .content { margin-left: 0 !important; padding: 0 !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .card, .chart-card, .plan-card { box-shadow: none !important; border: 1px solid #ddd !important; }
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeVerse | Eco Challenges</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/premium.css">
+  <link rel="stylesheet" href="css/eco.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Mobile topbar -->
+  <div class="topbar">
+    <span class="topbar-logo">🌱 LifeVerse</span>
+    <button class="menu-btn"><i class="fas fa-bars"></i></button>
+  </div>
+
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button class="sidebar-close"><i class="fas fa-times"></i></button>
+      <div class="logo">🌱 LifeVerse</div>
+      <nav>
+        <ul>
+          <li onclick="location.href='dashboard.html'"><i class="fas fa-house"></i> Dashboard</li>
+          <li class="active"><i class="fas fa-leaf"></i> Eco Challenges</li>
+          <li onclick="location.href='bills.html'"><i class="fas fa-file-invoice"></i> Bills</li>
+          <li onclick="location.href='quests.html'"><i class="fas fa-flag"></i> Quests</li>
+          <li onclick="location.href='analytics.html'"><i class="fas fa-chart-line"></i> Analytics</li>
+          <li onclick="location.href='profile.html'"><i class="fas fa-user"></i> Profile</li>
+          <li onclick="location.href='premium.html'"><i class="fas fa-crown"></i> Premium</li>
+        </ul>
+        <div class="sidebar-divider"></div>
+        <ul>
+          <li id="themeToggle" data-theme-toggle style="cursor:pointer;">
+            <i class="fas fa-sun"></i> Light Mode
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="content">
+
+      <div class="eco-header">
+        <h1>🌿 Eco Challenges</h1>
+        <p>Complete daily challenges to earn XP, Eco Coins, and help the planet.</p>
+      </div>
+
+      <!-- Eco Stats -->
+      <section class="eco-stats">
+        <div class="eco-stat">
+          <h2 id="xp">850</h2>
+          <p>Total XP</p>
+        </div>
+        <div class="eco-stat">
+          <h2 id="coins">1250</h2>
+          <p>Eco Coins</p>
+        </div>
+        <div class="eco-stat">
+          <h2 id="level">5</h2>
+          <p>Level</p>
+        </div>
+        <div class="eco-stat">
+          <h2 id="completedToday">0</h2>
+          <p>Completed Today</p>
+        </div>
+      </section>
+
+      <h2 class="section-title"><i class="fas fa-sun"></i> Daily Challenges</h2>
+      <section class="challenge-grid" id="challengeGrid">
+        <!-- Injected by JS -->
+      </section>
+
+      <!-- ===== PREMIUM CHALLENGES ===== -->
+      <h2 class="section-title">
+        <i class="fas fa-crown" style="color:#F57F17;"></i> Premium Challenges
+        <span id="premiumChallPlanTag" style="margin-left:auto;font-size:13px;font-weight:600;color:#888;"></span>
+      </h2>
+      <section class="challenge-grid" id="premiumChallengeGrid">
+        <!-- Rendered by JS -->
+      </section>
+
+      <!-- ===== ELITE CHALLENGES ===== -->
+      <h2 class="section-title">
+        <i class="fas fa-crown" style="color:#9C27B0;"></i> Elite Challenges
+        <span id="eliteChallPlanTag" style="margin-left:auto;font-size:13px;font-weight:600;color:#888;"></span>
+      </h2>
+      <section class="challenge-grid" id="eliteChallengeGrid">
+        <!-- Rendered by JS -->
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/premium.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    /* =============================================
+       ECO CHALLENGES — inline logic
+    ============================================= */
+
+    const CHALLENGES = [
+      { id:'eco1', icon:'♻️', title:'Recycle 5 Plastic Bottles', desc:'Collect and recycle five plastic bottles from around your home or neighbourhood.', difficulty:'easy',   xp:100, coins:50  },
+      { id:'eco2', icon:'💡', title:'Save Electricity',           desc:'Turn off all lights and unplug devices you are not using for the day.',              difficulty:'easy',   xp:150, coins:75  },
+      { id:'eco3', icon:'🚶', title:'Walk Instead of Driving',    desc:'Choose to walk or cycle for short trips instead of taking a car today.',              difficulty:'medium', xp:200, coins:100 },
+      { id:'eco4', icon:'🌳', title:'Plant a Tree',               desc:'Plant a tree in your garden or sponsor a tree through a verified platform.',          difficulty:'hard',   xp:500, coins:300 },
+      { id:'eco5', icon:'🛒', title:'Buy Local Produce',          desc:'Purchase fruits or vegetables from a local farm or farmers market.',                  difficulty:'easy',   xp:120, coins:60  },
+      { id:'eco6', icon:'🚿', title:'Cut Your Shower Short',      desc:'Reduce your shower time to 5 minutes or less to save water.',                        difficulty:'medium', xp:180, coins:90  },
+    ];
+
+    function renderChallenges() {
+      const grid  = document.getElementById('challengeGrid');
+      const today = new Date().toDateString();
+      let doneCount = 0;
+
+      grid.innerHTML = CHALLENGES.map(c => {
+        const key   = 'challenge_' + c.id + '_' + today;
+        const done  = localStorage.getItem(key) === 'true';
+        if (done) doneCount++;
+
+        return `
+          <div class="challenge-card">
+            <div class="challenge-icon">${c.icon}</div>
+            <h3>${c.title}</h3>
+            <p>${c.desc}</p>
+            <span class="difficulty ${c.difficulty}">${c.difficulty.charAt(0).toUpperCase() + c.difficulty.slice(1)}</span>
+            <div class="reward-row">
+              <span>⭐ +${c.xp} XP</span>
+              <span>🪙 +${c.coins} Coins</span>
+            </div>
+            <button
+              class="claim-btn ${done ? 'completed' : ''}"
+              id="btn_${c.id}"
+              onclick="completeChallenge('${c.id}', ${c.xp}, ${c.coins})"
+              ${done ? 'disabled' : ''}>
+              ${done ? '✅ Completed' : 'Complete Challenge'}
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      const el = document.getElementById('completedToday');
+      if (el) el.textContent = doneCount;
+    }
+
+    function completeChallenge(id, xp, coins) {
+      const today = new Date().toDateString();
+      const key   = 'challenge_' + id + '_' + today;
+
+      if (localStorage.getItem(key) === 'true') {
+        showNotification('You already completed this challenge today!', 'info');
+        return;
+      }
+
+      // Apply premium multiplier
+      const bonusXp    = Math.round(xp    * getPremiumXpMultiplier());
+      const bonusCoins = Math.round(coins * getPremiumCoinMultiplier());
+
+      localStorage.setItem(key, 'true');
+      addRewards(bonusXp, bonusCoins);
+
+      const prev = Number(localStorage.getItem('completedQuests')) || 0;
+      localStorage.setItem('completedQuests', String(prev + 1));
+
+      const mult = getPremiumXpMultiplier();
+      const multLabel = mult > 1 ? ` (${mult}× bonus!)` : '';
+      showNotification(`🌿 Done! +${bonusXp} XP & +${bonusCoins} Coins${multLabel}`);
+      renderChallenges();
+    }
+
+    // ===== PREMIUM CHALLENGE DATA =====
+    const PREMIUM_CHALLENGES = [
+      { id:'pc1', icon:'🌱', title:'Grow Your Own Food',        desc:'Plant a vegetable or herb that you can harvest and eat.',          difficulty:'medium', xp:280, coins:140, plan:'pro' },
+      { id:'pc2', icon:'🧴', title:'Switch to Eco Cleaning',    desc:'Replace one household cleaner with a natural or eco alternative.', difficulty:'easy',   xp:220, coins:110, plan:'pro' },
+      { id:'pc3', icon:'👗', title:'Buy Second-Hand',           desc:'Purchase one item of clothing from a thrift or charity shop.',     difficulty:'easy',   xp:200, coins:100, plan:'pro' },
+      { id:'pc4', icon:'🚌', title:'Use Public Transport',      desc:'Take a bus, tram or train instead of a private car today.',        difficulty:'medium', xp:250, coins:125, plan:'pro' },
+      { id:'pc5', icon:'🔋', title:'Full Unplug Day',           desc:'Go 24 hours without charging any device using mains power.',       difficulty:'hard',   xp:600, coins:350, plan:'elite' },
+      { id:'pc6', icon:'🌍', title:'Carbon Offset Purchase',    desc:'Buy a verified carbon offset credit for one tonne of CO₂.',       difficulty:'hard',   xp:700, coins:400, plan:'elite' },
+      { id:'pc7', icon:'🏡', title:'Home Energy Audit',         desc:'Complete a full home energy audit and identify three improvements.',difficulty:'hard',   xp:750, coins:450, plan:'elite' },
+      { id:'pc8', icon:'🎁', title:'Eco Gift a Friend',         desc:'Gift someone an eco-friendly product or plant a tree in their name.',difficulty:'medium',xp:400, coins:200, plan:'elite' },
+    ];
+
+    function renderPremiumChallenges() {
+      const plan     = getCurrentPlan();
+      const hasPro   = plan === 'pro' || plan === 'elite';
+      const hasElite = plan === 'elite';
+      const today    = new Date().toDateString();
+
+      const proTag   = document.getElementById('premiumChallPlanTag');
+      const eliteTag = document.getElementById('eliteChallPlanTag');
+      if (proTag)   proTag.textContent   = hasPro   ? '⚡ Unlocked' : '🔒 Pro & Elite only';
+      if (eliteTag) eliteTag.textContent = hasElite ? '👑 Unlocked' : '🔒 Elite only';
+
+      const proGrid   = document.getElementById('premiumChallengeGrid');
+      const eliteGrid = document.getElementById('eliteChallengeGrid');
+
+      if (proGrid) {
+        proGrid.innerHTML = PREMIUM_CHALLENGES.filter(c => c.plan === 'pro')
+          .map(c => buildPremiumChallengeCard(c, hasPro, today)).join('');
+      }
+      if (eliteGrid) {
+        eliteGrid.innerHTML = PREMIUM_CHALLENGES.filter(c => c.plan === 'elite')
+          .map(c => buildPremiumChallengeCard(c, hasElite, today)).join('');
+      }
+    }
+
+    function buildPremiumChallengeCard(c, unlocked, today) {
+      const key  = 'challenge_' + c.id + '_' + today;
+      const done = localStorage.getItem(key) === 'true';
+      const planColor = c.plan === 'elite' ? '#9C27B0' : '#F57F17';
+      const planLabel = c.plan === 'elite' ? '👑 Elite' : '⚡ Pro';
+
+      if (!unlocked) {
+        return `
+          <div class="challenge-card locked-card" style="border-top-color:${planColor};min-height:280px;">
+            <div class="challenge-icon">${c.icon}</div>
+            <h3>${c.title}</h3>
+            <p>${c.desc}</p>
+            <span class="difficulty ${c.difficulty}">${c.difficulty.charAt(0).toUpperCase()+c.difficulty.slice(1)}</span>
+            <div class="reward-row"><span>⭐ +${c.xp} XP</span><span>🪙 +${c.coins} Coins</span></div>
+            <div class="lock-overlay" onclick="showUpgradePrompt('${c.title}')">
+              <i class="fas fa-lock"></i>
+              <p>${planLabel} Challenge</p>
+              <span class="unlock-tag"><i class="fas fa-crown"></i> Upgrade to Unlock</span>
+            </div>
+          </div>`;
+      }
+
+      return `
+        <div class="challenge-card" style="border-top-color:${planColor};">
+          <div class="challenge-icon">${c.icon}</div>
+          <h3>${c.title}</h3>
+          <p>${c.desc}</p>
+          <span class="difficulty ${c.difficulty}">${c.difficulty.charAt(0).toUpperCase()+c.difficulty.slice(1)}</span>
+          <div class="reward-row"><span>⭐ +${c.xp} XP</span><span>🪙 +${c.coins} Coins</span></div>
+          <button class="claim-btn ${done ? 'completed' : ''}"
+                  onclick="completePremiumChallenge('${c.id}',${c.xp},${c.coins})"
+                  ${done ? 'disabled' : ''}>
+            ${done ? '✅ Completed' : 'Complete Challenge'}
+          </button>
+        </div>`;
+    }
+
+    function completePremiumChallenge(id, xp, coins) {
+      const today = new Date().toDateString();
+      const key   = 'challenge_' + id + '_' + today;
+
+      if (localStorage.getItem(key) === 'true') {
+        showNotification('Already completed today!', 'info');
+        return;
+      }
+
+      const bonusXp    = Math.round(xp    * getPremiumXpMultiplier());
+      const bonusCoins = Math.round(coins * getPremiumCoinMultiplier());
+
+      localStorage.setItem(key, 'true');
+      addRewards(bonusXp, bonusCoins);
+
+      const prev = Number(localStorage.getItem('completedQuests')) || 0;
+      localStorage.setItem('completedQuests', String(prev + 1));
+
+      const mult = getPremiumXpMultiplier();
+      const multLabel = mult > 1 ? ` (${mult}× bonus!)` : '';
+      showNotification(`🌿 Done! +${bonusXp} XP & +${bonusCoins} Coins${multLabel}`);
+      renderPremiumChallenges();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderChallenges();
+      renderPremiumChallenges();
+    });
+  </script>
+</body>
+</html>
