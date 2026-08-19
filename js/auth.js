@@ -22,7 +22,8 @@ function setLoading(btnId, loading) {
   const btn = document.getElementById(btnId);
   if (!btn) return;
   btn.disabled = loading;
-  btn.querySelector('span').textContent = loading ? 'Please wait…' : btn.dataset.label;
+  const span = btn.querySelector('span');
+  if (span) span.textContent = loading ? 'Please wait…' : btn.dataset.label;
 }
 
 // ===== PASSWORD TOGGLE =====

@@ -4,105 +4,109 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LifeVerse | Sign Up</title>
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/signup.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <script>if(localStorage.getItem('lv-theme')==='light'){document.documentElement.classList.add('light-mode');document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light-mode');});}</script>
 </head>
 <body>
 
-  <div class="auth-bg">
+  <div class="signup-page">
+    <div class="signup-card">
 
-    <!-- Left panel -->
-    <div class="auth-panel">
-      <div class="auth-brand">🌱 LifeVerse</div>
-      <button id="themeToggle" class="theme-toggle" style="position:absolute;top:24px;right:24px;background:rgba(61,158,74,0.10);border:1px solid rgba(61,158,74,0.28);color:var(--accent);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;" title="Switch to light mode" aria-label="Switch to light mode">
-        <i class="fas fa-sun"></i>
-      </button>
-      <h2>Start Your Eco Journey Today.</h2>
-      <p>Create a free account and begin earning rewards for living sustainably.</p>
-      <ul class="auth-features">
-        <li><i class="fas fa-check-circle"></i> Free Forever</li>
-        <li><i class="fas fa-check-circle"></i> Instant XP &amp; Rewards</li>
-        <li><i class="fas fa-check-circle"></i> Personal Eco Dashboard</li>
-        <li><i class="fas fa-check-circle"></i> AI-Powered Insights</li>
-      </ul>
-    </div>
+      <!-- Header -->
+      <div class="signup-header">
+        <div class="brand-icon">
+          <i class="fas fa-seedling"></i>
+        </div>
+        <h1>Join LifeVerse</h1>
+        <p>Start your eco journey today</p>
+      </div>
 
-    <!-- Right form -->
-    <div class="auth-form-wrap">
-      <div class="auth-card">
-        <h1>Create Account 🌿</h1>
-        <p class="auth-sub">Join the LifeVerse community</p>
+      <!-- Message -->
+      <div id="authMessage" class="auth-message" style="display:none;"></div>
 
-        <div id="authMessage" class="auth-message" style="display:none;"></div>
+      <form id="signupForm" novalidate>
 
-        <form id="signupForm" novalidate>
+        <div class="signup-form">
 
-          <div class="input-group">
-            <label>Full Name</label>
-            <div class="input-box">
-              <i class="fas fa-user"></i>
-              <input type="text" id="signupName" placeholder="Your full name" required>
+          <!-- Name -->
+          <div class="field-group">
+            <label class="field-label" for="signupName">Full Name</label>
+            <div class="signup-input">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="signupName" placeholder="Your name"
+                     autocomplete="name" required>
             </div>
           </div>
 
-          <div class="input-group">
-            <label>Email Address</label>
-            <div class="input-box">
-              <i class="fas fa-envelope"></i>
-              <input type="email" id="signupEmail" placeholder="you@example.com" required>
+          <!-- Email -->
+          <div class="field-group">
+            <label class="field-label" for="signupEmail">Email Address</label>
+            <div class="signup-input">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="signupEmail" placeholder="you@example.com"
+                     autocomplete="email" required>
             </div>
           </div>
 
-          <div class="input-group">
-            <label>Password</label>
-            <div class="input-box">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="signupPassword" placeholder="At least 6 characters" required>
-              <button type="button" class="toggle-pw" id="togglePwSignup" tabindex="-1">
+          <!-- Password -->
+          <div class="field-group">
+            <label class="field-label" for="signupPassword">Password</label>
+            <div class="signup-input">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="signupPassword" placeholder="Create a password"
+                     autocomplete="new-password" required>
+              <button type="button" class="toggle-pw" id="togglePwSignup" aria-label="Toggle password">
                 <i class="fas fa-eye" id="togglePwSignupIcon"></i>
               </button>
             </div>
-            <div class="strength-bar"><div id="strengthFill"></div></div>
-            <small id="strengthLabel" class="strength-label"></small>
+            <!-- Strength bar -->
+            <div class="strength-wrap">
+              <div class="strength-bar">
+                <div id="strengthFill"></div>
+              </div>
+              <span class="strength-label" id="strengthLabel"></span>
+            </div>
           </div>
 
-          <div class="input-group">
-            <label>Confirm Password</label>
-            <div class="input-box">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="signupConfirm" placeholder="Repeat your password" required>
-              <button type="button" class="toggle-pw" id="togglePwConfirm" tabindex="-1">
+          <!-- Confirm Password -->
+          <div class="field-group">
+            <label class="field-label" for="signupConfirm">Confirm Password</label>
+            <div class="signup-input">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="signupConfirm" placeholder="Re-enter your password"
+                     autocomplete="new-password" required>
+              <button type="button" class="toggle-pw" id="togglePwConfirm" aria-label="Toggle confirm password">
                 <i class="fas fa-eye" id="togglePwConfirmIcon"></i>
               </button>
             </div>
           </div>
 
+          <div class="form-divider"></div>
+
+          <!-- Terms -->
           <label class="terms-check">
-            <input type="checkbox" id="agreeTerms" required>
-            I agree to the <span>Terms &amp; Conditions</span>
+            <input type="checkbox" id="agreeTerms">
+            <span>I agree to the <a href="#">Terms &amp; Conditions</a></span>
           </label>
 
-          <button type="submit" class="auth-btn" id="signupBtn">
-            <span>Create Account</span>
-            <i class="fas fa-arrow-right"></i>
+          <!-- Submit -->
+          <button type="submit" class="signup-btn" id="signupBtn" data-label="Create Account">
+            <span><i class="fas fa-seedling"></i> Create Account</span>
           </button>
 
-        </form>
+        </div><!-- /.signup-form -->
 
-        <p class="auth-link">
-          Already have an account? <a href="login.html">Login</a>
-        </p>
-      </div>
+        <div class="auth-link">
+          Already have an account? <a href="login.html">Sign In</a>
+        </div>
+
+      </form>
     </div>
-
   </div>
 
-  <script src="js/theme.js"></script>
   <script src="js/auth.js"></script>
 </body>
 </html>

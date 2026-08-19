@@ -1,140 +1,35 @@
-/* =============================================
-   LIFEVERSE — ANALYTICS PAGE  (Green & Black)
-   css/analytics.css  — extends dashboard.css
-============================================= */
+/* LIFEVERSE — ANALYTICS (Night Theme) */
+.analytics-value { font-size:38px; font-weight:800; color:#4ade80; margin:10px 0 4px; letter-spacing:-1px; }
+.analytics-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:#4a5568; }
 
-/* ===== BIG VALUE DISPLAY ===== */
-.analytics-value {
-  font-size: 40px;
-  font-weight: 800;
-  color: var(--accent);
-  margin: 10px 0 4px;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, var(--accent-light), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.analytics-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-3);
-}
-
-/* ===== CHART CARD ===== */
 .chart-card {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 28px;
-  margin-bottom: 24px;
-  animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
-  position: relative;
-  overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  background:#161d2e; border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px; padding:26px; margin-bottom:24px;
+  animation: fadeUp 0.5s ease both;
+  position:relative; overflow:hidden;
+  transition:border-color 0.3s, box-shadow 0.3s;
 }
-.chart-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
-  opacity: 0.6;
-}
-.chart-card:hover {
-  border-color: var(--border-accent);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 20px var(--accent-glow);
-}
+.chart-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(74,222,128,0.4),transparent); opacity:0.6; }
+.chart-card:hover { border-color:rgba(74,222,128,0.25); box-shadow:0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(74,222,128,0.08); }
+.chart-card h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+.chart-card h2 i { color:#4ade80; font-size:14px; }
 
-.chart-card h2 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-1);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.chart-card h2 i { color: var(--accent); font-size: 14px; }
+.metric-chip { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid rgba(74,222,128,0.25); background:rgba(74,222,128,0.08); color:#4ade80; margin:0 4px 8px 0; }
+.metric-chip.green-chip { background:rgba(74,222,128,0.10); color:#4ade80; border-color:rgba(74,222,128,0.25); }
+.metric-chip.red-chip   { background:rgba(239,68,68,0.10);  color:#f87171; border-color:rgba(239,68,68,0.25); }
 
-/* ===== METRIC CHIPS ===== */
-.metric-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid var(--border-accent);
-  background: var(--accent-subtle);
-  color: var(--accent);
-  margin: 0 4px 8px 0;
-}
-.metric-chip.green-chip {
-  background: rgba(61,158,74,0.10);
-  color: var(--accent-light);
-  border-color: rgba(61,158,74,0.25);
-}
-.metric-chip.red-chip {
-  background: rgba(196,64,64,0.10);
-  color: #e07070;
-  border-color: rgba(196,64,64,0.25);
-}
+.trend-up   { color:#4ade80; font-size:13px; font-weight:700; }
+.trend-down { color:#f87171; font-size:13px; font-weight:700; }
 
-/* ===== TREND INDICATOR ===== */
-.trend-up   { color: var(--accent-light); font-size: 13px; font-weight: 700; }
-.trend-down { color: #e07070;             font-size: 13px; font-weight: 700; }
+.period-tabs { display:flex; gap:4px; background:#1a2236; border:1px solid rgba(255,255,255,0.07); border-radius:999px; padding:4px; width:fit-content; margin-bottom:18px; }
+.period-tab { padding:6px 16px; border-radius:999px; font-size:12px; font-weight:600; color:#8b9ab8; cursor:pointer; border:none; background:none; font-family:inherit; transition:background 0.2s, color 0.2s; }
+.period-tab.active { background:rgba(74,222,128,0.12); color:#4ade80; border:1px solid rgba(74,222,128,0.25); }
+.period-tab:hover:not(.active) { color:#e8f0fe; background:rgba(255,255,255,0.04); }
 
-/* ===== PERIOD SELECTOR ===== */
-.period-tabs {
-  display: flex;
-  gap: 4px;
-  background: var(--surface-3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  padding: 4px;
-  width: fit-content;
-  margin-bottom: 20px;
-}
-.period-tab {
-  padding: 6px 16px;
-  border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-2);
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-  transition: background var(--transition), color var(--transition);
-}
-.period-tab.active {
-  background: var(--accent-subtle);
-  color: var(--accent);
-  border: 1px solid var(--border-accent);
-}
-.period-tab:hover:not(.active) { color: var(--text-1); background: rgba(61,158,74,0.06); }
+.summary-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.07); font-size:13px; }
+.summary-row:last-of-type { border-bottom:none; }
+.summary-row span    { color:#8b9ab8; display:flex; align-items:center; gap:8px; }
+.summary-row span i  { color:#4ade80; font-size:12px; }
+.summary-row strong  { color:#4ade80; font-weight:700; font-size:15px; }
 
-/* ===== SUMMARY ROW ===== */
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
-.summary-row:last-of-type { border-bottom: none; }
-.summary-row span         { color: var(--text-2); display: flex; align-items: center; gap: 8px; }
-.summary-row span i       { color: var(--accent); font-size: 12px; }
-.summary-row strong       { color: var(--accent); font-weight: 700; font-size: 15px; }
-
-/* ===== ANIMATION ===== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }

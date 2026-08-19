@@ -1,27 +1,18 @@
 /* =============================================
    LIFEVERSE — APP HELPERS
    js/app.js
-   Handles: sidebar mobile toggle, dark mode,
-            profile image, active nav state
 ============================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===== MOBILE SIDEBAR TOGGLE =====
-  const sidebar    = document.querySelector('.sidebar');
-  const menuBtn    = document.querySelector('.menu-btn');
-  const closeBtn   = document.querySelector('.sidebar-close');
-  const overlay    = document.createElement('div');
+  const sidebar  = document.querySelector('.sidebar');
+  const menuBtn  = document.querySelector('.menu-btn');
+  const closeBtn = document.querySelector('.sidebar-close');
 
+  const overlay = document.createElement('div');
   overlay.className = 'sidebar-overlay';
-  overlay.style.cssText = [
-    'display:none',
-    'position:fixed',
-    'inset:0',
-    'background:rgba(0,0,0,0.45)',
-    'z-index:250',
-    'transition:opacity 0.3s',
-  ].join(';');
+  overlay.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:250;opacity:0;transition:opacity 0.3s;';
   document.body.appendChild(overlay);
 
   function openSidebar() {
@@ -29,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.add('open');
     overlay.style.display = 'block';
     requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+    document.body.style.overflow = 'hidden';
   }
 
   function closeSidebar() {
@@ -36,83 +28,68 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.remove('open');
     overlay.style.opacity = '0';
     setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    document.body.style.overflow = '';
   }
 
   if (menuBtn)  menuBtn.addEventListener('click', openSidebar);
   if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
   overlay.addEventListener('click', closeSidebar);
 
-  // ===== DARK MODE =====
-  function applyTheme(dark) {
-    document.body.classList.toggle('dark-mode', dark);
-
-    // Sync all toggle checkboxes
-    document.querySelectorAll('#darkMode').forEach(cb => { cb.checked = dark; });
+  // Close sidebar on nav link tap (mobile)
+  if (sidebar) {
+    sidebar.querySelectorAll('li[onclick]').forEach(li => {
+      li.addEventListener('click', () => {
+        if (window.innerWidth <= 900) closeSidebar();
+      });
+    });
   }
 
-  // Load saved theme
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+  // ===== MOBILE BOTTOM NAV =====
+  const page = window.location.pathname.split('/').pop() || 'dashboard.html';
+  const navItems = [
+    { icon:'fa-house',      label:'Home',      href:'dashboard.html' },
+    { icon:'fa-leaf',       label:'Eco',       href:'eco.html'       },
+    { icon:'fa-flag',       label:'Quests',    href:'quests.html'    },
+    { icon:'fa-chart-line', label:'Analytics', href:'analytics.html' },
+    { icon:'fa-user',       label:'Profile',   href:'profile.html'   },
+  ];
 
-  // Dark mode toggle (checkbox style)
-  document.querySelectorAll('#darkMode').forEach(cb => {
-    cb.addEventListener('change', () => {
-      const dark = cb.checked;
-      localStorage.setItem('theme', dark ? 'dark' : 'light');
-      applyTheme(dark);
-      showNotification(dark ? '🌙 Dark mode on' : '☀️ Light mode on', 'info');
-    });
+  const bottomNav = document.createElement('nav');
+  bottomNav.className = 'bottom-nav';
+  navItems.forEach(item => {
+    const a = document.createElement('a');
+    a.href = item.href;
+    a.className = 'bottom-nav-item' + (page === item.href ? ' active' : '');
+    a.innerHTML = `<i class="fas ${item.icon}"></i><span>${item.label}</span>`;
+    bottomNav.appendChild(a);
   });
-
-  // Button-style theme toggle
-  document.querySelectorAll('.theme-toggle, #themeToggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const dark = !document.body.classList.contains('dark-mode');
-      localStorage.setItem('theme', dark ? 'dark' : 'light');
-      applyTheme(dark);
-      showNotification(dark ? '🌙 Dark mode on' : '☀️ Light mode on', 'info');
-    });
-  });
+  document.body.appendChild(bottomNav);
 
   // ===== PROFILE IMAGE SYNC =====
   const savedImg = localStorage.getItem('profileImage');
-
-  // Update header avatar if present
+  const name     = localStorage.getItem('profileName') || 'LV';
   document.querySelectorAll('.header-avatar').forEach(img => {
-    if (savedImg) img.src = savedImg;
-    else {
-      const name = localStorage.getItem('profileName') || 'LV';
-      img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2E7D32&color=ffffff`;
-    }
+    img.src = savedImg ||
+      `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2E7D32&color=ffffff`;
   });
 
-  // Handle profile photo upload (profile page)
   const imageUpload = document.getElementById('imageUpload');
   const profileImg  = document.getElementById('profileImage');
-
   if (imageUpload && profileImg) {
     if (savedImg) profileImg.src = savedImg;
-
     imageUpload.addEventListener('change', function () {
       const file = this.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = e => {
-        const src = e.target.result;
-        profileImg.src = src;
-        localStorage.setItem('profileImage', src);
+        profileImg.src = e.target.result;
+        localStorage.setItem('profileImage', e.target.result);
+        document.querySelectorAll('.header-avatar').forEach(img => { img.src = e.target.result; });
         showNotification('📸 Profile photo updated!');
       };
       reader.readAsDataURL(file);
     });
   }
-
-  // ===== ACTIVE NAV HIGHLIGHT =====
-  const currentPage = window.location.pathname.split('/').pop() || 'dashboard.html';
-  document.querySelectorAll('.sidebar li[data-page]').forEach(li => {
-    if (li.dataset.page === currentPage) li.classList.add('active');
-  });
 
   // ===== BUTTON PRESS FEEDBACK =====
   document.addEventListener('click', e => {
