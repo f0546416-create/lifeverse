@@ -47,11 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== MOBILE BOTTOM NAV =====
   const page = window.location.pathname.split('/').pop() || 'dashboard.html';
   const navItems = [
-    { icon:'fa-house',      label:'Home',      href:'dashboard.html' },
-    { icon:'fa-leaf',       label:'Eco',       href:'eco.html'       },
-    { icon:'fa-flag',       label:'Quests',    href:'quests.html'    },
-    { icon:'fa-chart-line', label:'Analytics', href:'analytics.html' },
-    { icon:'fa-user',       label:'Profile',   href:'profile.html'   },
+    { icon:'fa-house',        label:'Home',      href:'dashboard.html' },
+    { icon:'fa-leaf',         label:'Eco',       href:'eco.html'       },
+    { icon:'fa-flag',         label:'Quests',    href:'quests.html'    },
+    { icon:'fa-file-invoice', label:'Bills',     href:'bills.html'     },
+    { icon:'fa-chart-line',   label:'Stats',     href:'analytics.html' },
+    { icon:'fa-crown',        label:'Premium',   href:'premium.html'   },
+    { icon:'fa-user',         label:'Profile',   href:'profile.html'   },
   ];
 
   const bottomNav = document.createElement('nav');

@@ -276,12 +276,12 @@ progress::-moz-progress-bar      { background:linear-gradient(90deg, var(--green
 }
 .bottom-nav-item {
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:3px; flex:1; height:100%; text-decoration:none;
-  color:var(--text-faint); font-size:10px; font-weight:600;
+  gap:2px; flex:1; height:100%; text-decoration:none;
+  color:var(--text-faint); font-size:9px; font-weight:600;
   border-radius:8px; transition:color 0.2s;
-  padding:6px 4px; -webkit-tap-highlight-color:transparent;
+  padding:4px 2px; -webkit-tap-highlight-color:transparent;
 }
-.bottom-nav-item i { font-size:18px; transition:transform 0.2s, color 0.2s; }
+.bottom-nav-item i { font-size:16px; transition:transform 0.2s, color 0.2s; }
 .bottom-nav-item.active, .bottom-nav-item:hover { color:var(--green); }
 .bottom-nav-item.active i { transform:translateY(-2px); }
 
