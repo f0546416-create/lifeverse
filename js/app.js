@@ -36,11 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.addEventListener('click', closeSidebar);
 
   // Close sidebar on nav link tap (mobile)
+  // Use touchstart so navigation fires before any transition disrupts the click
   if (sidebar) {
     sidebar.querySelectorAll('li[onclick]').forEach(li => {
-      li.addEventListener('click', () => {
-        if (window.innerWidth <= 900) closeSidebar();
-      });
+      // Add touch-action to eliminate 300ms tap delay
+      li.style.touchAction = 'manipulation';
+
+      // On touchend: run the onclick navigation, then close the sidebar
+      li.addEventListener('touchend', function (e) {
+        if (window.innerWidth > 900) return;
+        e.preventDefault();
+        const dest = li.getAttribute('onclick');
+        closeSidebar();
+        if (dest) {
+          // Extract href from onclick="location.href='...'"
+          const match = dest.match(/location\.href=['"]([^'"]+)['"]/);
+          if (match) {
+            setTimeout(() => { window.location.href = match[1]; }, 10);
+          }
+        }
+      }, { passive: false });
     });
   }
 

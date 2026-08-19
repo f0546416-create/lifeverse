@@ -74,6 +74,9 @@ body::before {
   color:var(--text-muted);
   transition: background 0.2s, color 0.2s, transform 0.2s;
   border:1px solid transparent;
+  touch-action: manipulation; /* eliminate 300ms tap delay on mobile */
+  -webkit-tap-highlight-color: rgba(74,222,128,0.15);
+  user-select: none;
 }
 .sidebar li:hover { background:var(--green-subtle); color:var(--text-primary); transform:translateX(3px); }
 .sidebar li.active {
@@ -303,7 +306,7 @@ progress::-moz-progress-bar      { background:linear-gradient(90deg, var(--green
 /* ===== RESPONSIVE ===== */
 @media (max-width:1200px) { .dashboard-grid { grid-template-columns:repeat(2,1fr); } }
 @media (max-width:900px) {
-  .sidebar { transform:translateX(-100%); z-index:300; box-shadow:4px 0 40px rgba(0,0,0,0.6); }
+  .sidebar { transform:translateX(-100%); z-index:400; box-shadow:4px 0 40px rgba(0,0,0,0.6); }
   .sidebar.open { transform:translateX(0); }
   .sidebar-close { display:flex; }
   .topbar  { display:flex; }
